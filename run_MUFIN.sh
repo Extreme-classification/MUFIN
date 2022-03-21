@@ -1,16 +1,16 @@
-# ./run_MUFIN.sh 0,1 PreTrainedMultiModalSiameseXC D2Q-4M Yo_run_it ViT sentencebert -1 0
+# ./run_MUFIN.sh 0,1 PreTrainedMufinMultiModal MM-AmazonTitles-300K MUFIN ViT sentencebert -1 0
+# ./run_MUFIN.sh 0,1 MufinMultiModal MM-AmazonTitles-300K TrainingMUFIN ViT sentencebert 5 0
 export work_dir="${HOME}/scratch/XC"
 export PROGRAMS_DIR="${work_dir}/programs/ExtremeMethods"
 export PYTHONPATH="${PYTHONPATH}:${PROGRAMS_DIR}"
-
-CUDA_VISIBLE_DEVICES=${1}
-model_type=${2}           # MultiModalSiameseXC SiameseTextXML
-dataset=${3}              # SAMPLE-IMG-AmazonTitles-1K
-version=${4}              # ANY_NAME
-img_model="${5}"          # resnet18 vgg11 inception_v3 ViT
-txt_model="${6}"          # BoW Seq VisualBert sentencebert
-export KEEP_TOP_K="${7}"  # Keeps only first two images
-export RESTRICTMEM="${8}" # 0-> stores on ram, 1-> stores on disk
+export CUDA_VISIBLE_DEVICES=${1} # CUDA devices
+model_type=${2}                  # MultiModalSiameseXC SiameseTextXML
+dataset=${3}                     # SAMPLE-IMG-AmazonTitles-1K
+version=${4}                     # ANY_NAME
+img_model="${5}"                 # resnet18 vgg11 inception_v3 ViT
+txt_model="${6}"                 # BoW Seq VisualBert sentencebert
+export KEEP_TOP_K="${7}"         # Keeps only first two images
+export RESTRICTMEM="${8}"        # 0-> stores on ram, 1-> stores on disk
 
 data_dir="${work_dir}/data"
 model_dir="${work_dir}/models/${dataset}/${model_type}/v_${version}"
@@ -52,7 +52,7 @@ run_eval() {
 
 module1() {
     log_tr_file="${result_dir}/log_train.txt"
-    python -u mufin.py $PARAMS --mode train --module 1 | tee $log_tr_file
+    # python -u mufin.py $PARAMS --mode train --module 1 | tee $log_tr_file
     python -u mufin.py $PARAMS --mode retrain_anns --module 1 | tee $log_pr_file
 }
 
@@ -114,27 +114,72 @@ module4pp() {
     run_eval "test_${ranker}" "tst_X_Y.txt" "filter_labels_test.txt" "m4"
 }
 
-# module1
-# module2
-# module3
+fetch_scoremat() {
+    ranker=$1
+    alpha=$2
+    log_eval_file="$result_dir/log_extract.txt"
+    echo "${ranker}" | tee -a $log_eval_file
+    python -u ${PROGRAMS_DIR}/xc/tools/extract_eval.py "$data_dir/$dataset/trn_X_Y.txt" \
+        "$data_dir/$dataset/tst_X_Y.txt" "$result_dir" "test_${ranker}" "${data_dir}/$dataset" \
+        "configs/${dset_json}" "filter_labels_test.txt" "m4" $alpha 2>&1 | tee -a $log_eval_file
+}
 
-# module4 MufinOva
-# ./run_extract.sh $model_type $dataset $version MufinOva 0.7 0.9
+MUFIN() {
+    ranker=$1
+    rm -rf ${model_dir}/mufin_${ranker}
+    rm -rf ${result_dir}/mufin_${ranker}
+    
+    mkdir -p ${model_dir}/mufin_${ranker}
+    mkdir -p ${result_dir}/mufin_${ranker}
+    mkdir -p ${result_dir}/mufin_${ranker}/module2
+    mkdir -p ${result_dir}/mufin_${ranker}/module4
+
+
+    cp ${model_dir}/model.pkl ${model_dir}/mufin_${ranker}
+    cp ${model_dir}/filter_model.pkl ${model_dir}/mufin_${ranker}
+    
+    cp ${model_dir}/model_${ranker}.pkl ${model_dir}/mufin_${ranker}
+    cp ${model_dir}/filter_model_${ranker}.pkl ${model_dir}/mufin_${ranker}
+    model_dir="${model_dir}/mufin_${ranker}"
+    result_dir="${result_dir}/mufin_${ranker}"
+
+    PARAMS="--model_fname ${model_type} \
+            --img_model ${img_model} --data_dir ${data_dir}/${dataset} \
+            --txt_model $txt_model --config configs/${dset_json} \
+            --model_dir ${model_dir} --result_dir ${result_dir} \
+            --seed 22 --dataset $dataset --pred_fname score \
+            --filter_labels filter_labels_test.txt ${validate_args}"
+
+    log_ex_file="${result_dir}/log_extract_mufin.txt"
+    extra_args="${PARAMS} --model_out_name model_${ranker}.pkl \
+    --extract_fname encoder.pkl --ranker ${ranker}"
+    python -u mufin.py --mode extract_model --module 4 ${extra_args} | tee $log_ex_file
+
+    log_pr_file="${result_dir}/log_mufin.txt"
+    python -u mufin.py $PARAMS --mode retrain_anns \
+        --encoder_init encoder.pkl --module 1 | tee $log_pr_file
+
+    extra_args="$PARAMS --extract_x_img images/test.img.bin --extract_x_txt raw_data/test.raw.txt \
+    --extract_fname module2/test.npz --extract_y tst_X_Y.txt --filter_labels filter_labels_test.txt"
+    python -u mufin.py --mode predict ${extra_args} --module 2 | tee -a $log_pr_file
+    run_eval "module2/test" "tst_X_Y.txt" "filter_labels_test.txt" "m2"
+
+    extra_args="${PARAMS} --model_out_name model_${ranker}.pkl --ranker ${ranker} \
+    --extract_x_img images/test.img.bin --extract_x_txt raw_data/test.raw.txt \
+    --extract_y tst_X_Y.txt --extract_fname test_m4_mufin_${ranker} --save_all \
+    --filter_labels filter_labels_test.txt ${validate_args}"
+    python -u mufin.py --mode predict ${extra_args} --module 4 | tee -a $log_rk_file".pred"
+    run_eval "test_m4_mufin_${ranker}" "tst_X_Y.txt" "filter_labels_test.txt" "m4"
+}
+
+module1
+module2
+module3
 
 module4 MufinXAttnRanker
-./run_extract.sh $model_type $dataset $version MufinXAttnRanker 0.7 0.9
+module4pp MufinXAttnRankerpp
+fetch_scoremat MufinXAttnRankerpp 1
+fetch_scoremat MufinXAttnRanker 0.5
+MUFIN MufinXAttnRankerpp
 
-# module4pp MufinXAttnRankervpp
-# ./run_extract.sh $model_type $dataset $version MufinXAttnRankervpp 1.0 1.0
 
-# module4pp MufinXAttnRankerpp
-# ./run_extract.sh $model_type $dataset $version MufinXAttnRanker 0.7 0.9
-
-# module4pp XAttnRankerpp
-# ./run_extract.sh $model_type $dataset $version XAttnRankerpp 0.5 0.9
-
-# module4pp XAttnRankervpp
-# ./run_extract.sh $model_type $dataset $version XAttnRankerv 0.5 0.9
-
-# ./run_extract.sh $model_type $dataset $version NGAME 0.7 0.9
-# ./run_extract.sh $model_type $dataset $version XAttnRankerv 0.1 0.5

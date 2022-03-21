@@ -111,7 +111,7 @@ def main(params):
     optimizer = None
     if params.mode == 'train':
         # NOTE: Use last index as padding label
-        optimizer = optimizer_utils.Optimizer()
+        optimizer = optimizer_utils.Optimizer(optim=params.optim)
         model = construct_model(params, network, optimizer)
         train(model, params)
 

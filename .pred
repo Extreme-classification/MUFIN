@@ -1,0 +1,776 @@
+Model parameters:  Namespace(A=0.6, B=2.6, accumulate=2, at_least=5, batch_size=200, boosting=False, bucket=1, config='configs/MM-AmazonTitles-300K.json', cosine_margin=0.5, data_dir='/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K', dataset='MM-AmazonTitles-300K', dropout=0.3, emb_dim=768, emb_dir='random', embeddings='/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/random', encoder_init=None, extract_fname='test_m4_mufin_MufinXAttnRankerpp', extract_x_img='images/test.img.bin', extract_x_shorty=None, extract_x_txt='raw_data/test.raw.txt', extract_y='tst_X_Y.txt', f_name='trn_X_Xf', filter_labels='filter_labels_test.txt', freeze_layer=4, hard_pos=True, head_dims=2048, ignore_img=False, ignore_lbl_imgs=False, ignore_txt=False, img_db='images/img.bin', img_model='ViT', keep_all=False, keep_k=10, lbl_x_img='images/label.img.bin', lbl_x_txt='raw_data/label.raw.txt', lr=0.05, lr_mf_clf=0.1, lr_mf_enc=0.001, margin=0.3, max_csim=0.9, max_len=32, max_worker_thread=10, min_leaf_sz=32, min_splits=-1, mode='predict', model_dir='/home/cse/phd/anz198717/scratch/XC/models/MM-AmazonTitles-300K/PreTrainedMufinMultiModal/v_train_ngame/mufin', model_fname='PreTrainedMufinMultiModal', model_out_name='model_MufinXAttnRankerpp.pkl', module=4, multi_pos=4, n_heads=12, n_layer=1, neg_sample=3, normalize=True, not_use_module2=False, ntypes=2, num_epochs=20, num_labels=303296, num_vocab=40000, num_workers=7, optim='AdamW', pred_fname='score.npz', prefetch_factor=1, preload=False, project_dim=192, ranker='MufinXAttnRankerpp', ranker_project_dim=192, ranker_warm=1000, re_size=256, result_dir='/home/cse/phd/anz198717/scratch/XC/results/MM-AmazonTitles-300K/PreTrainedMufinMultiModal/v_train_ngame/mufin', sample_neg=12, sample_pos=5, sampling=True, save_all=True, seed=22, surrogate_warm=1000, top_k=100, trn_x_img='images/train.img.bin', trn_x_txt='raw_data/train.raw.txt', trn_y='trn_X_Y.txt', tst_x_img='images/test.img.bin', tst_x_txt='raw_data/test.raw.txt', tst_y='tst_X_Y.txt', txt_model='sentencebert', validate=True, validate_after=5, verbose=50000, warm_start=20)
+MufinXAttnRankerpp(
+  (criterian): CosineEmbeddingLoss(m=0.5, pos_wts=1.0)
+  (item_encoder): DataParallel(
+    (module): MultiModalRanker(
+      (attn_encoder): MultiModalEncoder(
+        (txt_encoder): SentenceBert(
+          apply_pooler=True
+          (features): DistilBertModel(
+            (embeddings): Embeddings(
+              (word_embeddings): Embedding(30522, 768, padding_idx=0)
+              (position_embeddings): Embedding(512, 768)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (transformer): Transformer(
+              (layer): ModuleList(
+                (0): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (1): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (2): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (3): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (4): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (5): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+              )
+            )
+          )
+          (bottle_neck): BottleNeck(
+            (features): Sequential(
+              (0): AdaptiveMaxPool1d(output_size=192)
+            )
+          )
+        )
+        (img_encoder): PreTrainedImg(
+          (features): Linear(in_features=768, out_features=768, bias=True)
+          (bottle_neck): BottleNeck(
+            (features): Sequential(
+              (0): AdaptiveMaxPool1d(output_size=192)
+            )
+          )
+        )
+        (merge_embds): MergeInstances(
+          (features): RTEncoder(
+            (layers): ModuleList(
+              (0): ReverseTransformerBlock(
+                (attented): MultiHeadAtttention(
+                  (nheads): 12
+                  (plin_q): Linear(in_features=192, out_features=192, bias=True)
+                  (plin_k): Linear(in_features=192, out_features=192, bias=True)
+                  (plin_v): Linear(in_features=192, out_features=192, bias=True)
+                  (attention): QuadraticAttention(
+                    (drop): Dropout(p=0.3, inplace=False)
+                    (activation): Softmax(dim=-1)
+                  )
+                  (plin_o): Linear(in_features=192, out_features=192, bias=True)
+                  (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+                )
+              )
+            )
+          )
+        )
+      )
+      (cross_encoder): RankInstances(
+        (features): RTDecoder(
+          (layers): ModuleList(
+            (0): ReverseTransformerBlock(
+              (attented): MultiHeadAtttention(
+                (nheads): 12
+                (plin_q): Linear(in_features=192, out_features=192, bias=True)
+                (plin_k): Linear(in_features=192, out_features=192, bias=True)
+                (plin_v): Linear(in_features=192, out_features=192, bias=True)
+                (attention): QuadraticAttention(
+                  (drop): Dropout(p=0.3, inplace=False)
+                  (activation): Softmax(dim=-1)
+                )
+                (plin_o): Linear(in_features=192, out_features=192, bias=True)
+                (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+              )
+            )
+          )
+        )
+      )
+      (label_clf): XAttn(
+        (features): Embedding(303297, 192, sparse=True)
+        (weights): Embedding(303297, 2, sparse=True)
+        (activation): Softmax(dim=-1)
+      )
+    )
+  )
+)
+IMG:images/test.img.bin(keep_k=-1)
+TXT:raw_data/test.raw.txt(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/sentencebert/test.txt.seq.memmap
+TXT:test.txt.seq.memmap(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/ViT/test.img.vect
+IMG:test.img.vect(keep_k=-1)
+IMG:images/label.img.bin(keep_k=-1)
+TXT:raw_data/label.raw.txt(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/sentencebert/label.txt.seq.memmap
+TXT:label.txt.seq.memmap(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/ViT/label.img.vect
+IMG:label.img.vect(keep_k=-1)
+Model parameters:  Namespace(A=0.6, B=2.6, accumulate=1, at_least=5, batch_size=400, boosting=False, bucket=1, config='configs/MM-AmazonTitles-300K.json', cosine_margin=0.5, data_dir='/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K', dataset='MM-AmazonTitles-300K', dropout=0.3, emb_dim=768, emb_dir='random', embeddings='/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/random', encoder_init=None, extract_fname='test_m4_mufin_MufinXAttnRankerpp', extract_x_img='images/test.img.bin', extract_x_shorty=None, extract_x_txt='raw_data/test.raw.txt', extract_y='tst_X_Y.txt', f_name='trn_X_Xf', filter_labels='filter_labels_test.txt', freeze_layer=4, hard_pos=True, head_dims=2048, ignore_img=False, ignore_lbl_imgs=False, ignore_txt=False, img_db='images/img.bin', img_model='ViT', keep_all=False, keep_k=10, lbl_x_img='images/label.img.bin', lbl_x_txt='raw_data/label.raw.txt', lr=0.05, lr_mf_clf=0.1, lr_mf_enc=0.001, margin=0.3, max_csim=0.9, max_len=32, max_worker_thread=10, min_leaf_sz=32, min_splits=-1, mode='predict', model_dir='/home/cse/phd/anz198717/scratch/XC/models/MM-AmazonTitles-300K/PreTrainedMufinMultiModal/v_test_code/mufin_MufinXAttnRankerpp', model_fname='PreTrainedMufinMultiModal', model_out_name='model_MufinXAttnRankerpp.pkl', module=4, multi_pos=4, n_heads=12, n_layer=1, neg_sample=3, normalize=True, not_use_module2=False, ntypes=2, num_epochs=20, num_labels=303296, num_vocab=40000, num_workers=7, optim='AdamW', pred_fname='score.npz', prefetch_factor=1, preload=False, project_dim=192, ranker='MufinXAttnRankerpp', ranker_project_dim=192, ranker_warm=1000, re_size=256, result_dir='/home/cse/phd/anz198717/scratch/XC/results/MM-AmazonTitles-300K/PreTrainedMufinMultiModal/v_test_code/mufin_MufinXAttnRankerpp', sample_neg=12, sample_pos=5, sampling=True, save_all=True, seed=22, surrogate_warm=1000, top_k=100, trn_x_img='images/train.img.bin', trn_x_txt='raw_data/train.raw.txt', trn_y='trn_X_Y.txt', tst_x_img='images/test.img.bin', tst_x_txt='raw_data/test.raw.txt', tst_y='tst_X_Y.txt', txt_model='sentencebert', validate=True, validate_after=5, verbose=50000, warm_start=20)
+MufinXAttnRankerpp(
+  (criterian): CosineEmbeddingLoss(m=0.5, pos_wts=1.0)
+  (item_encoder): DataParallel(
+    (module): MultiModalRanker(
+      (attn_encoder): MultiModalEncoder(
+        (txt_encoder): SentenceBert(
+          apply_pooler=True
+          (features): DistilBertModel(
+            (embeddings): Embeddings(
+              (word_embeddings): Embedding(30522, 768, padding_idx=0)
+              (position_embeddings): Embedding(512, 768)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (transformer): Transformer(
+              (layer): ModuleList(
+                (0): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (1): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (2): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (3): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (4): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (5): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+              )
+            )
+          )
+          (bottle_neck): BottleNeck(
+            (features): Sequential(
+              (0): AdaptiveMaxPool1d(output_size=192)
+            )
+          )
+        )
+        (img_encoder): PreTrainedImg(
+          (features): Linear(in_features=768, out_features=768, bias=True)
+          (bottle_neck): BottleNeck(
+            (features): Sequential(
+              (0): AdaptiveMaxPool1d(output_size=192)
+            )
+          )
+        )
+        (merge_embds): MergeInstances(
+          (features): RTEncoder(
+            (layers): ModuleList(
+              (0): ReverseTransformerBlock(
+                (attented): MultiHeadAtttention(
+                  (nheads): 12
+                  (plin_q): Linear(in_features=192, out_features=192, bias=True)
+                  (plin_k): Linear(in_features=192, out_features=192, bias=True)
+                  (plin_v): Linear(in_features=192, out_features=192, bias=True)
+                  (attention): QuadraticAttention(
+                    (drop): Dropout(p=0.3, inplace=False)
+                    (activation): Softmax(dim=-1)
+                  )
+                  (plin_o): Linear(in_features=192, out_features=192, bias=True)
+                  (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+                )
+              )
+            )
+          )
+        )
+      )
+      (cross_encoder): RankInstances(
+        (features): RTDecoder(
+          (layers): ModuleList(
+            (0): ReverseTransformerBlock(
+              (attented): MultiHeadAtttention(
+                (nheads): 12
+                (plin_q): Linear(in_features=192, out_features=192, bias=True)
+                (plin_k): Linear(in_features=192, out_features=192, bias=True)
+                (plin_v): Linear(in_features=192, out_features=192, bias=True)
+                (attention): QuadraticAttention(
+                  (drop): Dropout(p=0.3, inplace=False)
+                  (activation): Softmax(dim=-1)
+                )
+                (plin_o): Linear(in_features=192, out_features=192, bias=True)
+                (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+              )
+            )
+          )
+        )
+      )
+      (label_clf): XAttn(
+        (features): Embedding(303297, 192, sparse=True)
+        (weights): Embedding(303297, 2, sparse=True)
+        (activation): Softmax(dim=-1)
+      )
+    )
+  )
+)
+IMG:images/test.img.bin(keep_k=-1)
+TXT:raw_data/test.raw.txt(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/sentencebert/test.txt.seq.memmap
+TXT:test.txt.seq.memmap(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/ViT/test.img.vect
+IMG:test.img.vect(keep_k=-1)
+IMG:images/label.img.bin(keep_k=-1)
+TXT:raw_data/label.raw.txt(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/sentencebert/label.txt.seq.memmap
+TXT:label.txt.seq.memmap(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/ViT/label.img.vect
+IMG:label.img.vect(keep_k=-1)
+Loading model..
+docs: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 652/652 [01:38<00:00,  7.55it/s]
+lbls: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 759/759 [01:50<00:00,  8.43it/s]
+Predicting: 100%|█████████████████████████████████████████████████████████████████████████████████████████████| 1303/1303 [01:39<00:00, 15.89it/s]
+Model parameters:  Namespace(A=0.6, B=2.6, accumulate=1, at_least=5, batch_size=400, boosting=False, bucket=1, config='configs/MM-AmazonTitles-300K.json', cosine_margin=0.5, data_dir='/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K', dataset='MM-AmazonTitles-300K', dropout=0.1, emb_dim=768, emb_dir='random', embeddings='/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/random', encoder_init=None, extract_fname='test_m4_mufin_MufinXAttnRankerpp', extract_x_img='images/test.img.bin', extract_x_shorty=None, extract_x_txt='raw_data/test.raw.txt', extract_y='tst_X_Y.txt', f_name='trn_X_Xf', filter_labels='filter_labels_test.txt', freeze_layer=4, hard_pos=True, head_dims=2048, ignore_img=False, ignore_lbl_imgs=False, ignore_txt=False, img_db='images/img.bin', img_model='ViT', keep_all=False, keep_k=10, lbl_x_img='images/label.img.bin', lbl_x_txt='raw_data/label.raw.txt', lr=0.05, lr_mf_clf=0.1, lr_mf_enc=0.001, margin=0.3, max_csim=0.9, max_len=32, max_worker_thread=10, min_leaf_sz=32, min_splits=-1, mode='predict', model_dir='/home/cse/phd/anz198717/scratch/XC/models/MM-AmazonTitles-300K/PreTrainedMufinMultiModal/v_test_code/mufin_MufinXAttnRankerpp', model_fname='PreTrainedMufinMultiModal', model_out_name='model_MufinXAttnRankerpp.pkl', module=4, multi_pos=4, n_heads=12, n_layer=1, neg_sample=3, normalize=True, not_use_module2=False, ntypes=2, num_epochs=20, num_labels=303296, num_vocab=40000, num_workers=7, optim='AdamW', pred_fname='score.npz', prefetch_factor=1, preload=False, project_dim=192, ranker='MufinXAttnRankerpp', ranker_project_dim=192, ranker_warm=1000, re_size=256, result_dir='/home/cse/phd/anz198717/scratch/XC/results/MM-AmazonTitles-300K/PreTrainedMufinMultiModal/v_test_code/mufin_MufinXAttnRankerpp', sample_neg=12, sample_pos=5, sampling=True, save_all=True, seed=22, surrogate_warm=1000, top_k=100, trn_x_img='images/train.img.bin', trn_x_txt='raw_data/train.raw.txt', trn_y='trn_X_Y.txt', tst_x_img='images/test.img.bin', tst_x_txt='raw_data/test.raw.txt', tst_y='tst_X_Y.txt', txt_model='sentencebert', validate=True, validate_after=5, verbose=50000, warm_start=20)
+MufinXAttnRankerpp(
+  (criterian): CosineEmbeddingLoss(m=0.5, pos_wts=1.0)
+  (item_encoder): DataParallel(
+    (module): MultiModalRanker(
+      (attn_encoder): MultiModalEncoder(
+        (txt_encoder): SentenceBert(
+          apply_pooler=True
+          (features): DistilBertModel(
+            (embeddings): Embeddings(
+              (word_embeddings): Embedding(30522, 768, padding_idx=0)
+              (position_embeddings): Embedding(512, 768)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (transformer): Transformer(
+              (layer): ModuleList(
+                (0): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (1): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (2): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (3): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (4): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (5): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+              )
+            )
+          )
+          (bottle_neck): BottleNeck(
+            (features): Sequential(
+              (0): AdaptiveMaxPool1d(output_size=192)
+            )
+          )
+        )
+        (img_encoder): PreTrainedImg(
+          (features): Linear(in_features=768, out_features=768, bias=True)
+          (bottle_neck): BottleNeck(
+            (features): Sequential(
+              (0): AdaptiveMaxPool1d(output_size=192)
+            )
+          )
+        )
+        (merge_embds): MergeInstances(
+          (features): RTEncoder(
+            (layers): ModuleList(
+              (0): ReverseTransformerBlock(
+                (attented): MultiHeadAtttention(
+                  (nheads): 12
+                  (plin_q): Linear(in_features=192, out_features=192, bias=True)
+                  (plin_k): Linear(in_features=192, out_features=192, bias=True)
+                  (plin_v): Linear(in_features=192, out_features=192, bias=True)
+                  (attention): QuadraticAttention(
+                    (drop): Dropout(p=0.1, inplace=False)
+                    (activation): Softmax(dim=-1)
+                  )
+                  (plin_o): Linear(in_features=192, out_features=192, bias=True)
+                  (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+                )
+              )
+            )
+          )
+        )
+      )
+      (cross_encoder): RankInstances(
+        (features): RTDecoder(
+          (layers): ModuleList(
+            (0): ReverseTransformerBlock(
+              (attented): MultiHeadAtttention(
+                (nheads): 12
+                (plin_q): Linear(in_features=192, out_features=192, bias=True)
+                (plin_k): Linear(in_features=192, out_features=192, bias=True)
+                (plin_v): Linear(in_features=192, out_features=192, bias=True)
+                (attention): QuadraticAttention(
+                  (drop): Dropout(p=0.1, inplace=False)
+                  (activation): Softmax(dim=-1)
+                )
+                (plin_o): Linear(in_features=192, out_features=192, bias=True)
+                (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+              )
+            )
+          )
+        )
+      )
+      (label_clf): XAttn(
+        (features): Embedding(303297, 192, sparse=True)
+        (weights): Embedding(303297, 2, sparse=True)
+        (activation): Softmax(dim=-1)
+      )
+    )
+  )
+)
+IMG:images/test.img.bin(keep_k=-1)
+TXT:raw_data/test.raw.txt(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/sentencebert/test.txt.seq.memmap
+TXT:test.txt.seq.memmap(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/ViT/test.img.vect
+IMG:test.img.vect(keep_k=-1)
+IMG:images/label.img.bin(keep_k=-1)
+TXT:raw_data/label.raw.txt(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/sentencebert/label.txt.seq.memmap
+TXT:label.txt.seq.memmap(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/ViT/label.img.vect
+IMG:label.img.vect(keep_k=-1)
+Loading model..
+docs: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 652/652 [01:43<00:00,  7.86it/s]
+lbls: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 759/759 [01:51<00:00,  8.47it/s]
+Predicting: 100%|█████████████████████████████████████████████████████████████████████████████████████████████| 1303/1303 [02:23<00:00, 11.95it/s]
+Model parameters:  Namespace(A=0.6, B=2.6, accumulate=1, at_least=5, batch_size=400, boosting=False, bucket=1, config='configs/MM-AmazonTitles-300K.json', cosine_margin=0.5, data_dir='/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K', dataset='MM-AmazonTitles-300K', dropout=0.1, emb_dim=768, emb_dir='random', embeddings='/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/random', encoder_init=None, extract_fname='test_m4_mufin_MufinXAttnRankerpp', extract_x_img='images/test.img.bin', extract_x_shorty=None, extract_x_txt='raw_data/test.raw.txt', extract_y='tst_X_Y.txt', f_name='trn_X_Xf', filter_labels='filter_labels_test.txt', freeze_layer=4, hard_pos=True, head_dims=2048, ignore_img=False, ignore_lbl_imgs=False, ignore_txt=False, img_db='images/img.bin', img_model='ViT', keep_all=False, keep_k=10, lbl_x_img='images/label.img.bin', lbl_x_txt='raw_data/label.raw.txt', lr=0.05, lr_mf_clf=0.1, lr_mf_enc=0.001, margin=0.3, max_csim=0.9, max_len=32, max_worker_thread=10, min_leaf_sz=32, min_splits=-1, mode='predict', model_dir='/home/cse/phd/anz198717/scratch/XC/models/MM-AmazonTitles-300K/PreTrainedMufinMultiModal/v_test_code/mufin_MufinXAttnRankerpp', model_fname='PreTrainedMufinMultiModal', model_out_name='model_MufinXAttnRankerpp.pkl', module=4, multi_pos=4, n_heads=12, n_layer=1, neg_sample=3, normalize=True, not_use_module2=False, ntypes=2, num_epochs=20, num_labels=303296, num_vocab=40000, num_workers=7, optim='AdamW', pred_fname='score.npz', prefetch_factor=1, preload=False, project_dim=192, ranker='MufinXAttnRankerpp', ranker_project_dim=192, ranker_warm=1000, re_size=256, result_dir='/home/cse/phd/anz198717/scratch/XC/results/MM-AmazonTitles-300K/PreTrainedMufinMultiModal/v_test_code/mufin_MufinXAttnRankerpp', sample_neg=12, sample_pos=5, sampling=True, save_all=True, seed=22, surrogate_warm=1000, top_k=100, trn_x_img='images/train.img.bin', trn_x_txt='raw_data/train.raw.txt', trn_y='trn_X_Y.txt', tst_x_img='images/test.img.bin', tst_x_txt='raw_data/test.raw.txt', tst_y='tst_X_Y.txt', txt_model='sentencebert', validate=True, validate_after=5, verbose=50000, warm_start=20)
+MufinXAttnRankerpp(
+  (criterian): CosineEmbeddingLoss(m=0.5, pos_wts=1.0)
+  (item_encoder): DataParallel(
+    (module): MultiModalRanker(
+      (attn_encoder): MultiModalEncoder(
+        (txt_encoder): SentenceBert(
+          apply_pooler=True
+          (features): DistilBertModel(
+            (embeddings): Embeddings(
+              (word_embeddings): Embedding(30522, 768, padding_idx=0)
+              (position_embeddings): Embedding(512, 768)
+              (LayerNorm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+              (dropout): Dropout(p=0.1, inplace=False)
+            )
+            (transformer): Transformer(
+              (layer): ModuleList(
+                (0): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (1): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (2): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (3): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (4): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+                (5): TransformerBlock(
+                  (attention): MultiHeadSelfAttention(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (q_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (k_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (v_lin): Linear(in_features=768, out_features=768, bias=True)
+                    (out_lin): Linear(in_features=768, out_features=768, bias=True)
+                  )
+                  (sa_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                  (ffn): FFN(
+                    (dropout): Dropout(p=0.1, inplace=False)
+                    (lin1): Linear(in_features=768, out_features=3072, bias=True)
+                    (lin2): Linear(in_features=3072, out_features=768, bias=True)
+                  )
+                  (output_layer_norm): LayerNorm((768,), eps=1e-12, elementwise_affine=True)
+                )
+              )
+            )
+          )
+          (bottle_neck): BottleNeck(
+            (features): Sequential(
+              (0): AdaptiveMaxPool1d(output_size=192)
+            )
+          )
+        )
+        (img_encoder): PreTrainedImg(
+          (features): Linear(in_features=768, out_features=768, bias=True)
+          (bottle_neck): BottleNeck(
+            (features): Sequential(
+              (0): AdaptiveMaxPool1d(output_size=192)
+            )
+          )
+        )
+        (merge_embds): MergeInstances(
+          (features): RTEncoder(
+            (layers): ModuleList(
+              (0): ReverseTransformerBlock(
+                (attented): MultiHeadAtttention(
+                  (nheads): 12
+                  (plin_q): Linear(in_features=192, out_features=192, bias=True)
+                  (plin_k): Linear(in_features=192, out_features=192, bias=True)
+                  (plin_v): Linear(in_features=192, out_features=192, bias=True)
+                  (attention): QuadraticAttention(
+                    (drop): Dropout(p=0.1, inplace=False)
+                    (activation): Softmax(dim=-1)
+                  )
+                  (plin_o): Linear(in_features=192, out_features=192, bias=True)
+                  (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+                )
+              )
+            )
+          )
+        )
+      )
+      (cross_encoder): RankInstances(
+        (features): RTDecoder(
+          (layers): ModuleList(
+            (0): ReverseTransformerBlock(
+              (attented): MultiHeadAtttention(
+                (nheads): 12
+                (plin_q): Linear(in_features=192, out_features=192, bias=True)
+                (plin_k): Linear(in_features=192, out_features=192, bias=True)
+                (plin_v): Linear(in_features=192, out_features=192, bias=True)
+                (attention): QuadraticAttention(
+                  (drop): Dropout(p=0.1, inplace=False)
+                  (activation): Softmax(dim=-1)
+                )
+                (plin_o): Linear(in_features=192, out_features=192, bias=True)
+                (norm): LayerNorm((192,), eps=1e-05, elementwise_affine=True)
+              )
+            )
+          )
+        )
+      )
+      (label_clf): XAttn(
+        (features): Embedding(303297, 192, sparse=True)
+        (weights): Embedding(303297, 2, sparse=True)
+        (activation): Softmax(dim=-1)
+      )
+    )
+  )
+)
+IMG:images/test.img.bin(keep_k=-1)
+TXT:raw_data/test.raw.txt(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/sentencebert/test.txt.seq.memmap
+TXT:test.txt.seq.memmap(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/ViT/test.img.vect
+IMG:test.img.vect(keep_k=-1)
+IMG:images/label.img.bin(keep_k=-1)
+TXT:raw_data/label.raw.txt(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/sentencebert/label.txt.seq.memmap
+TXT:label.txt.seq.memmap(read_full=True)
+/home/cse/phd/anz198717/scratch/XC/data/MM-AmazonTitles-300K/ViT/label.img.vect
+IMG:label.img.vect(keep_k=-1)
+Loading model..
+docs: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 652/652 [01:44<00:00,  8.32it/s]
+lbls: 100%|█████████████████████████████████████████████████████████████████████████████████████████████████████| 759/759 [01:53<00:00,  7.87it/s]
+Predicting: 100%|█████████████████████████████████████████████████████████████████████████████████████████████| 1303/1303 [02:17<00:00, 14.65it/s]
