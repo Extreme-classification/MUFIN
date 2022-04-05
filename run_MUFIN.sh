@@ -1,7 +1,7 @@
 # ./run_MUFIN.sh 0,1 PreTrainedMufinMultiModal MM-AmazonTitles-300K MUFIN ViT sentencebert -1 0
 # ./run_MUFIN.sh 0,1 MufinMultiModal MM-AmazonTitles-300K TrainingMUFIN ViT sentencebert 5 0
 export work_dir="${HOME}/scratch/XC"
-export PROGRAMS_DIR="${work_dir}/programs/ExtremeMethods"
+export PROGRAMS_DIR="${work_dir}/programs/CafeXC"
 export PYTHONPATH="${PYTHONPATH}:${PROGRAMS_DIR}"
 export CUDA_VISIBLE_DEVICES=${1} # CUDA devices
 model_type=${2}                  # MultiModalSiameseXC SiameseTextXML
@@ -52,7 +52,7 @@ run_eval() {
 
 module1() {
     log_tr_file="${result_dir}/log_train.txt"
-    # python -u mufin.py $PARAMS --mode train --module 1 | tee $log_tr_file
+    python -u mufin.py $PARAMS --mode train --module 1 | tee $log_tr_file
     python -u mufin.py $PARAMS --mode retrain_anns --module 1 | tee $log_pr_file
 }
 

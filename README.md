@@ -1,12 +1,13 @@
-# MUFIN: [Multimodal extreme classification]()
+# [MUFIN: Multimodal extreme classification](https://github.com/Extreme-classification/MUFIN/blob/main/MUFIN.pdf)
 ```bib
 @InProceedings{Mittal22, 
-author      = {Mittal, A. and Dahiya, K. and Malani, S. and Ramaswamy, J. and Kuruvilla, S. and 
-               Ajmera, J. and Chang, K. and Agrawal, S. and Kar, P. and Varma, M.},     
-title       = {Multi-modal extreme classification},
-booktitle   = {CVPR}, 
-month       = {June},
-year        = {2022}}
+    author    = {Mittal, A. and Dahiya, K. and Malani, S. and Ramaswamy, J. and Kuruvilla, S. and 
+                 Ajmera, J. and Chang, K. and Agrawal, S. and Kar, P. and Varma, M.},     
+    title     = {MUFIN: Multimodal extreme classification},
+    booktitle = {CVPR}, 
+    month     = {June},
+    year      = {2022}
+}
 ```
 
 ## SETUP WORKSPACE
@@ -15,10 +16,8 @@ mkdir -p ${HOME}/scratch/XC/data
 mkdir -p ${HOME}/scratch/XC/programs
 ```
 
-## DOWNLOAD DATASET
-### Fill out [this google form](https://forms.gle/81CqBw7nx1a8WWzp9)
-
 ## SETUP DATASET
+Download dataset from [XML Repository](http://manikvarma.org/downloads/XC/XMLRepository.html)
 ```bash
 cd ${HOME}/scratch/XC/data
 gdown --id <from google form>
@@ -29,8 +28,8 @@ cd -
 ## SETUP MUFIN
 ```bash
 cd ${HOME}/scratch/XC/programs
-git clone https://github.com/anshumitts/ExtremeMethods.git
-conda env create -f ExtremeMethods/XC.yml
+git clone https://github.com/anshumitts/CafeXC.git
+conda env create -f CafeXC/cafexc.yml
 conda activate xc
 
 pip install Cython git+https://github.com/kunaldahiya/pyxclib.git
