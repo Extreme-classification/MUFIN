@@ -1,4 +1,4 @@
-# [MUFIN: Multimodal extreme classification](https://github.com/Extreme-classification/MUFIN/blob/main/MUFIN.pdf)
+# [Multimodal extreme classification](https://github.com/Extreme-classification/MUFIN/blob/main/MUFIN.pdf)
 ```bib
 @InProceedings{Mittal22, 
     author    = {Mittal, A. and Dahiya, K. and Malani, S. and Ramaswamy, J. and Kuruvilla, S. and 
