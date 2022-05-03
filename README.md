@@ -3,7 +3,7 @@
 @InProceedings{Mittal22, 
     author    = {Mittal, A. and Dahiya, K. and Malani, S. and Ramaswamy, J. and Kuruvilla, S. and 
                  Ajmera, J. and Chang, K. and Agrawal, S. and Kar, P. and Varma, M.},     
-    title     = {MUFIN: Multimodal extreme classification},
+    title     = {Multimodal extreme classification},
     booktitle = {CVPR}, 
     month     = {June},
     year      = {2022}
