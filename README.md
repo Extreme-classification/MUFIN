@@ -20,19 +20,20 @@ mkdir -p ${HOME}/scratch/XC/programs
 Download dataset from [XML Repository](http://manikvarma.org/downloads/XC/XMLRepository.html)
 ```bash
 cd ${HOME}/scratch/XC/data
-gdown --id <from google form>
+gdown --id 1bV5d_SOw6pNXWrQecihcSc2xkqUcXMFO (from gdrive url)
 unzip MM-AmazonTitles-300K.zip
 cd -
 ```
 
+NOTE: If you need pre-downloaded images (128x128) kindly fill out [this form](https://docs.google.com/forms/d/e/1FAIpQLSe_vb7U83w6vdGslXF5pDR0TdAxft-GJoWv6vQ_bHzcJtn_vA/viewform?usp=sf_link)
 ## SETUP MUFIN
 ```bash
 cd ${HOME}/scratch/XC/programs
 git clone https://github.com/anshumitts/CafeXC.git
-conda env create -f CafeXC/cafexc.yml
+conda env create -f CafeXC/CafeXC.yml
 conda activate xc
 
-pip install Cython git+https://github.com/kunaldahiya/pyxclib.git
+pip install hnswlib Cython git+https://github.com/kunaldahiya/pyxclib.git
 
 git clone https://github.com/Extreme-classification/MUFIN.git
 ```

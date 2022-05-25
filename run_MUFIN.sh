@@ -43,7 +43,7 @@ mkdir -p ${result_dir}/module4
 run_eval() {
     log_eval_file="$result_dir/log_eval.txt"
     python -u ${PROGRAMS_DIR}/xc/tools/evaluate.py \
-        "$data_dir/$dataset/trn_X_Y.txt" \
+        "$data_dir/$dataset/trn_X_Y.npz" \
         "$data_dir/$dataset/${2}" \
         "$result_dir" "${1}" "${data_dir}/$dataset" \
         "configs/${dset_json}" \
@@ -59,14 +59,14 @@ module1() {
 module2() {
     log_pr_file="${result_dir}/log_predict.txt"
     extra_args="--extract_x_img images/test.img.bin --extract_x_txt raw_data/test.raw.txt \
-    --extract_fname module2/test.npz --extract_y tst_X_Y.txt --filter_labels filter_labels_test.txt"
+    --extract_fname module2/test.npz --extract_y tst_X_Y.npz --filter_labels filter_labels_test.txt"
     python -u mufin.py $PARAMS --mode predict ${extra_args} --module 2 | tee $log_pr_file
-    run_eval "module2/test" "tst_X_Y.txt" "filter_labels_test.txt" "m2"
+    run_eval "module2/test" "tst_X_Y.npz" "filter_labels_test.txt" "m2"
 
     extra_args="--extract_x_img images/train.img.bin --extract_x_txt raw_data/train.raw.txt \
-    --extract_fname module2/train.npz --extract_y trn_X_Y.txt --filter_labels filter_labels_train.txt"
+    --extract_fname module2/train.npz --extract_y trn_X_Y.npz --filter_labels filter_labels_train.txt"
     python -u mufin.py $PARAMS --mode predict ${extra_args} --module 2 | tee -a $log_pr_file
-    run_eval "module2/train" "trn_X_Y.txt" "filter_labels_train.txt" "m2"
+    run_eval "module2/train" "trn_X_Y.npz" "filter_labels_train.txt" "m2"
 }
 
 module3() {
@@ -95,10 +95,10 @@ module4() {
     log_rk_file="${result_dir}/log_ranker_${ranker}.txt"
     XPARAMS="${PARAMS} --model_out_name model_${ranker}.pkl --ranker ${ranker} \
     --extract_x_img module3/test.img.pretrained  --extract_x_txt module3/test.txt.pretrained \
-    --extract_y tst_X_Y.txt --extract_fname test_${ranker} --module 4 --save_all ${validate_args}"
+    --extract_y tst_X_Y.npz --extract_fname test_${ranker} --module 4 --save_all ${validate_args}"
     python -u mufin.py $XPARAMS --mode train | tee $log_rk_file
     python -u mufin.py $XPARAMS --mode predict | tee -a $log_rk_file".pred"
-    run_eval "test_${ranker}" "tst_X_Y.txt" "filter_labels_test.txt" "m4"
+    run_eval "test_${ranker}" "tst_X_Y.npz" "filter_labels_test.txt" "m4"
 }
 
 module4pp() {
@@ -107,11 +107,11 @@ module4pp() {
     log_rk_file="${result_dir}/log_ranker_${ranker}.txt"
     XPARAMS="${PARAMS} --model_out_name model_${ranker}.pkl --ranker ${ranker} \
     --extract_x_img images/test.img.bin --extract_x_txt raw_data/test.raw.txt \
-    --extract_y tst_X_Y.txt --extract_fname test_${ranker} --module 4 --save_all \
+    --extract_y tst_X_Y.npz --extract_fname test_${ranker} --module 4 --save_all \
     --filter_labels filter_labels_test.txt --encoder_init module3/encoder.pkl ${validate_args}"
     python -u mufin.py $XPARAMS --mode train | tee $log_rk_file
     python -u mufin.py $XPARAMS --mode predict | tee -a $log_rk_file".pred"
-    run_eval "test_${ranker}" "tst_X_Y.txt" "filter_labels_test.txt" "m4"
+    run_eval "test_${ranker}" "tst_X_Y.npz" "filter_labels_test.txt" "m4"
 }
 
 fetch_scoremat() {
@@ -119,8 +119,8 @@ fetch_scoremat() {
     alpha=$2
     log_eval_file="$result_dir/log_extract.txt"
     echo "${ranker}" | tee -a $log_eval_file
-    python -u ${PROGRAMS_DIR}/xc/tools/extract_eval.py "$data_dir/$dataset/trn_X_Y.txt" \
-        "$data_dir/$dataset/tst_X_Y.txt" "$result_dir" "test_${ranker}" "${data_dir}/$dataset" \
+    python -u ${PROGRAMS_DIR}/xc/tools/extract_eval.py "$data_dir/$dataset/trn_X_Y.npz" \
+        "$data_dir/$dataset/tst_X_Y.npz" "$result_dir" "test_${ranker}" "${data_dir}/$dataset" \
         "configs/${dset_json}" "filter_labels_test.txt" "m4" $alpha 2>&1 | tee -a $log_eval_file
 }
 
@@ -160,16 +160,16 @@ MUFIN() {
         --encoder_init encoder.pkl --module 1 | tee $log_pr_file
 
     extra_args="$PARAMS --extract_x_img images/test.img.bin --extract_x_txt raw_data/test.raw.txt \
-    --extract_fname module2/test.npz --extract_y tst_X_Y.txt --filter_labels filter_labels_test.txt"
+    --extract_fname module2/test.npz --extract_y tst_X_Y.npz --filter_labels filter_labels_test.txt"
     python -u mufin.py --mode predict ${extra_args} --module 2 | tee -a $log_pr_file
-    run_eval "module2/test" "tst_X_Y.txt" "filter_labels_test.txt" "m2"
+    run_eval "module2/test" "tst_X_Y.npz" "filter_labels_test.txt" "m2"
 
     extra_args="${PARAMS} --model_out_name model_${ranker}.pkl --ranker ${ranker} \
     --extract_x_img images/test.img.bin --extract_x_txt raw_data/test.raw.txt \
-    --extract_y tst_X_Y.txt --extract_fname test_m4_mufin_${ranker} --save_all \
+    --extract_y tst_X_Y.npz --extract_fname test_m4_mufin_${ranker} --save_all \
     --filter_labels filter_labels_test.txt ${validate_args}"
     python -u mufin.py --mode predict ${extra_args} --module 4 | tee -a $log_rk_file".pred"
-    run_eval "test_m4_mufin_${ranker}" "tst_X_Y.txt" "filter_labels_test.txt" "m4"
+    run_eval "test_m4_mufin_${ranker}" "tst_X_Y.npz" "filter_labels_test.txt" "m4"
 }
 
 module1
