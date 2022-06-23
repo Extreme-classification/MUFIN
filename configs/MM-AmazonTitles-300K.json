@@ -3,7 +3,6 @@
         "A": 0.6,
         "B": 2.6,
         "num_labels": 303296,
-        "bucket": 1,
         "accumulate": 1,
         "at_least": 5,
         "batch_size": 1023,
@@ -31,7 +30,7 @@
         "neg_sample": 3,
         "normalize": true,
         "ntypes": 2,
-        "num_epochs": 400,
+        "num_epochs": 200,
         "num_vocab": 40000,
         "num_workers": 7,
         "optim": "AdamW",
@@ -79,27 +78,21 @@
         "ignore_img": true
     },
     "MufinXAttnRankerv": {
-        "n_heads": 2,
         "lr_mf_enc": 0.005,
         "batch_size": 400,
         "lbl_x_img": "module3/label.img.pretrained",
         "lbl_x_txt": "module3/label.txt.pretrained",
-        "num_epochs": 1,
-        "test_batch_size": 200,
         "trn_x_img": "module3/train.img.pretrained",
         "trn_x_txt": "module3/train.txt.pretrained",
         "tst_x_img": "module3/test.img.pretrained",
         "tst_x_txt": "module3/test.txt.pretrained"
     },
     "MufinXAttnRankervpp": {
-        "bucket": 1,
-        "accumulate": 4,
-        "n_heads": 2,
+        "n_heads": 12,
         "lr": 0.05,
         "lr_mf_enc": 0.001,
-        "batch_size": 29,
-        "num_epochs": 20,
-        "test_batch_size": 29
+        "batch_size": 200,
+        "num_epochs": 20
     },
     "MufinXAttnRanker": {
         "lr": 0.05,
@@ -115,8 +108,6 @@
         
     },
     "MufinXAttnRankerpp": {
-        "bucket": 1,
-        "accumulate": 2,
         "n_heads": 12,
         "lr": 0.05,
         "batch_size": 200,

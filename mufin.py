@@ -8,7 +8,7 @@ import xc.models.network as mn
 import xc.libs.optimizer_utils as optimizer_utils
 
 torch.backends.cudnn.enabled = False
-torch.multiprocessing.set_sharing_strategy('file_system')
+# torch.multiprocessing.set_sharing_strategy('file_system')
 
 __author__ = 'AM'
 
@@ -33,15 +33,15 @@ def predict(model, params):
             data_path = os.path.join(
                 params.result_dir, f"{key}_{params.extract_fname}")
             if params.save_all:
-                sp.save_npz(data_path, val)
+                sp.save_npz(data_path, val, compressed=False)
         if not params.save_all:
             data_path = os.path.join(params.result_dir, params.extract_fname)
-            sp.save_npz(data_path, val)
+            sp.save_npz(data_path, val, compressed=False)
     else:
         val = score_mat
         print(val.shape)
         data_path = os.path.join(params.result_dir, params.extract_fname)
-        sp.save_npz(data_path, val)
+        sp.save_npz(data_path, val, compressed=False)
 
 
 def predict_shorty(model, params):

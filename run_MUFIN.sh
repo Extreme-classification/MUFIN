@@ -18,7 +18,7 @@ result_dir="${work_dir}/results/${dataset}/${model_type}/v_${version}"
 temp_model_data="img-xml_data"
 dset_json="${dataset}.json"
 meta_data_folder="${data_dir}/$dataset/${temp_model_data}/$txt_model"
-# validate_args="--validate"
+validate_args="--validate"
 
 PARAMS="--model_fname ${model_type} \
 --img_model ${img_model} --data_dir ${data_dir}/${dataset} \
@@ -172,14 +172,14 @@ MUFIN() {
     run_eval "test_m4_mufin_${ranker}" "tst_X_Y.txt" "filter_labels_test.txt" "m4"
 }
 
-module1
-module2
-module3
+# module1
+# module2
+# module3
 
 module4 MufinXAttnRanker
-module4pp MufinXAttnRankerpp
-fetch_scoremat MufinXAttnRankerpp 1
-fetch_scoremat MufinXAttnRanker 0.5
-MUFIN MufinXAttnRankerpp
+# module4pp MufinXAttnRankerpp
+# fetch_scoremat MufinXAttnRankerpp 1
+# fetch_scoremat MufinXAttnRanker 0.5
+# MUFIN MufinXAttnRankerpp
 
 
