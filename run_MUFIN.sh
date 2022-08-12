@@ -172,9 +172,9 @@ MUFIN() {
     run_eval "test_m4_mufin_${ranker}" "tst_X_Y.txt" "filter_labels_test.txt" "m4"
 }
 
-# module1
-# module2
-# module3
+module1
+module2
+module3
 
 module4 MufinXAttnRanker
 # module4pp MufinXAttnRankerpp
