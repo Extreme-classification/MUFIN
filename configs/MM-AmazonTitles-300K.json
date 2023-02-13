@@ -7,7 +7,7 @@
         "at_least": 5,
         "batch_size": 1023,
         "boosting": false,
-        "dropout": 0.3,
+        "dropout": 0.1,
         "emb_dim": 768,
         "embeddings": "#ARGS.data_dir;/random",
         "f_name": "trn_X_Xf",
@@ -48,16 +48,17 @@
         "tst_x_img": "images/test.img.bin",
         "tst_x_txt": "raw_data/test.raw.txt",
         "tst_y": "tst_X_Y.txt",
+        "cl_update": 5,
         "validate_after": 10,
         "verbose": 50000,
         "warm_start": 20,
-        "surrogate_warm": 1000,
-        "ranker_warm": 1000,
+        "surrogate_warm": 1,
+        "ranker_warm": 1,
         "multi_pos": 4,
         "sample_pos": 2,
         "sample_neg": 12,
         "lr_mf_clf": 0.1,
-        "freeze_layer": 4,
+        "freeze_layer": -1,
         "cosine_margin": 0.5
     },
     "MufinMultiModal": {
@@ -66,12 +67,9 @@
     "MultiModalImageXC": {
         "ignore_txt": true
     },
-    "PreTrainedMufinMultiModal": {
-        },
+    "PreTrainedMufinMultiModal": {},
     "PreTrainedMufinImageXML": {
-        "num_epochs": 0,
-        "warm_start": 1,
-        "lr": 0.0002,
+        "lr": 0.02,
         "ignore_txt": true
     },
     "MufinTextXC": {
@@ -105,7 +103,6 @@
         "trn_x_txt": "module3/train.txt.pretrained",
         "tst_x_img": "module3/test.img.pretrained",
         "tst_x_txt": "module3/test.txt.pretrained"
-        
     },
     "MufinXAttnRankerpp": {
         "n_heads": 12,

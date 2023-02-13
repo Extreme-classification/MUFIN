@@ -25,7 +25,8 @@ PARAMS="--model_fname ${model_type} \
 --txt_model $txt_model --config configs/${dset_json} \
 --model_dir ${model_dir} --result_dir ${result_dir} \
 --seed 22 --dataset $dataset --pred_fname score \
---filter_labels filter_labels_test.txt ${validate_args}"
+--filter_labels filter_labels_test.txt \
+${validate_args} --doc_first"
 
 extension="bin"
 suffix="images"
@@ -52,8 +53,8 @@ run_eval() {
 
 module1() {
     log_tr_file="${result_dir}/log_train.txt"
-    python -u mufin.py $PARAMS --mode train --module 1 | tee $log_tr_file
-    python -u mufin.py $PARAMS --mode retrain_anns --module 1 | tee $log_pr_file
+    python -W ignore -u mufin.py $PARAMS --mode train --module 1 | tee $log_tr_file
+    python -W ignore -u mufin.py $PARAMS --mode retrain_anns --module 1 | tee $log_pr_file
 }
 
 module2() {
@@ -128,16 +129,15 @@ MUFIN() {
     ranker=$1
     rm -rf ${model_dir}/mufin_${ranker}
     rm -rf ${result_dir}/mufin_${ranker}
-    
+
     mkdir -p ${model_dir}/mufin_${ranker}
     mkdir -p ${result_dir}/mufin_${ranker}
     mkdir -p ${result_dir}/mufin_${ranker}/module2
     mkdir -p ${result_dir}/mufin_${ranker}/module4
 
-
     cp ${model_dir}/model.pkl ${model_dir}/mufin_${ranker}
     cp ${model_dir}/filter_model.pkl ${model_dir}/mufin_${ranker}
-    
+
     cp ${model_dir}/model_${ranker}.pkl ${model_dir}/mufin_${ranker}
     cp ${model_dir}/filter_model_${ranker}.pkl ${model_dir}/mufin_${ranker}
     model_dir="${model_dir}/mufin_${ranker}"
@@ -181,5 +181,3 @@ module4 MufinXAttnRanker
 # fetch_scoremat MufinXAttnRankerpp 1
 # fetch_scoremat MufinXAttnRanker 0.5
 # MUFIN MufinXAttnRankerpp
-
-

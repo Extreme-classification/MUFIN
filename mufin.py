@@ -3,8 +3,8 @@ import torch
 import numpy as np
 import parameters as p
 import scipy.sparse as sp
-import xc.libs.model as lm
-import xc.models.network as mn
+import xc.method.mufin.model as lm
+import xc.method.mufin.network as mn
 import xc.libs.optimizer_utils as optimizer_utils
 
 torch.backends.cudnn.enabled = False
