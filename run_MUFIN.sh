@@ -175,7 +175,6 @@ MUFIN() {
 module1
 module2
 module3
-
 module4 MufinXAttnRanker
 # module4pp MufinXAttnRankerpp
 # fetch_scoremat MufinXAttnRankerpp 1
