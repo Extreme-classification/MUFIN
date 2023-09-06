@@ -1,7 +1,7 @@
-# ./run_pretrained.sh ViT
+#./run_pretrained.sh ViT
 model="$1"
 work_dir="${HOME}/scratch/XC"
-export PROGRAMS_DIR="${work_dir}/programs/ExtremeMethods"
+export PROGRAMS_DIR="${work_dir}/programs/PrivateXC"
 export PYTHONPATH="${PYTHONPATH}:${PROGRAMS_DIR}"
 
 dset_name="MM-AmazonTitles-300K"

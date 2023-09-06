@@ -53,7 +53,7 @@ run_eval() {
 
 module1() {
     log_tr_file="${result_dir}/log_train.txt"
-    python -W ignore -u mufin.py $PARAMS --mode train --module 1 | tee $log_tr_file
+    # python -W ignore -u mufin.py $PARAMS --mode train --module 1 | tee $log_tr_file
     python -W ignore -u mufin.py $PARAMS --mode retrain_anns --module 1 | tee $log_pr_file
 }
 
@@ -176,7 +176,7 @@ module1
 module2
 module3
 module4 MufinXAttnRanker
-# module4pp MufinXAttnRankerpp
+module4pp MufinXAttnRankerpp
 # fetch_scoremat MufinXAttnRankerpp 1
 # fetch_scoremat MufinXAttnRanker 0.5
 # MUFIN MufinXAttnRankerpp
