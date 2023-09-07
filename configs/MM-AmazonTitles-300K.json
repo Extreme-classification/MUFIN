@@ -106,8 +106,8 @@
         "tst_x_txt": "module3/test.txt.pretrained"
     },
     "MufinXAttnRankerpp": {
-        "n_heads": 12,
-        "lr": 0.05,
+        "n_heads": 1,
+        "lr": 0.01,
         "batch_size": 200,
         "lr_mf_enc": 0.001,
         "num_epochs": 20
